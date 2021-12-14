@@ -53,9 +53,28 @@
   };
 
   class Product{  //deklaracja klasy - konstruktor
-    constructor(){
+    constructor(id, data){
       const thisProduct = this; //na metodę app
+
+      thisProduct.id = id;
+      thisProduct.data = data;
+
+      thisProduct.renderInMenu(); // uruchomi funkcję po utworzeniu instancji
+
       console.log('new produkt:',thisProduct);
+    }
+
+    renderInMenu(){ //metoda renderInMenu
+      const thisProduct = this;
+
+      /*generate HTML based on template*/
+      const generatedHTML = templates.menuProduct(thisProduct.data);
+      /*create element using utils.createElementFromHTML */
+      thisProduct.element = utils.createDOMFromHTML(generatedHTML);
+      /*find menu continer*/
+      const menuContainer = document.querySelector(select.containerOf.menu);
+      /*add element to menu*/
+      menuContainer.appendChild(thisProduct.element);
     }
   }
 
@@ -64,7 +83,7 @@
       const thisApp = this;
       console.log('thisApp.data:', thisApp.data);
       for(let productData in thisApp.data.products){ 
-        new Product(productData, thisApp.data.products[productData]); //tworzenie nowej instancji dla karzdego produktu
+        new Product(productData, thisApp.data.products[productData]); //tworzenie nowej instancji dla karzdego produktu, przkazujemy nazwę włąściwości(produktu) ale i obiekt kktury się pod nią kryje
       }
       
       /*const testProduct = new Product();
