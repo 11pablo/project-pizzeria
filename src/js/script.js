@@ -52,7 +52,34 @@
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
 
+  class Product{  //deklaracja klasy - konstruktor
+    constructor(){
+      const thisProduct = this; //na metodę app
+      console.log('new produkt:',thisProduct);
+    }
+  }
+
   const app = {
+    initMenu: function(){ //deklaracja metody app init menu
+      const thisApp = this;
+      console.log('thisApp.data:', thisApp.data);
+      for(let productData in thisApp.data.products){ 
+        new Product(productData, thisApp.data.products[productData]); //tworzenie nowej instancji dla karzdego produktu
+      }
+      
+      /*const testProduct = new Product();
+      console.log('testProduct:', testProduct);*/
+    },
+
+    initData: function(){ //metoda przygotowywuje dostęp do danych z obiektu dataSource
+      const thisApp = this;
+      console.log(thisApp);
+      thisApp.data = dataSource; //przez referencje
+      
+
+      
+    },
+
     init: function(){
       const thisApp = this;
       console.log('*** App starting ***');
@@ -60,8 +87,11 @@
       console.log('classNames:', classNames);
       console.log('settings:', settings);
       console.log('templates:', templates);
-    },
-  };
 
+      thisApp.initData();
+      thisApp.initMenu();
+    }
+  };
+  
   app.init();
 }
