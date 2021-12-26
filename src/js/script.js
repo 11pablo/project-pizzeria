@@ -158,7 +158,7 @@
       const thisProduct = this;
       /*console.log('initOrderFrom:');*/
 
-      thisProduct.form.addEventListener('submit', function(event){ //nasłuchiwanie submita//------------------
+      thisProduct.form.addEventListener('submit', function(event){ //nasłuchiwanie submita
         event.preventDefault(); //blokowanie  domyślnych akcji
         thisProduct.processOrder();
       });
@@ -178,7 +178,7 @@
 
     processOrder(){
       const thisProduct = this;
-      const formData = utils.serializeFormToObject(thisProduct.form); //--------------------
+      const formData = utils.serializeFormToObject(thisProduct.form); 
       //console.log('formData', formData);
 
       // set price to default price
@@ -263,12 +263,44 @@
       productSummary.amount = thisProduct.amountWidget.value;
       productSummary.priceSingle = thisProduct.priceSingle;
       productSummary.price = thisProduct.data.price;
-      productSummary.params = {};
+      productSummary.params =thisProduct.prepareCartProductParams();
       
       return productSummary;
     }
 
-    
+    prepareCartProductParams(){
+      const thisProduct = this;
+      const formData = utils.serializeFormToObject(thisProduct.form); //-------------
+      const params = {};
+      //console.log('formData', formData);
+
+      // for every category (param)...
+      for(let paramId in thisProduct.data.params) { //przejście po kategoriach
+      // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
+        const param = thisProduct.data.params[paramId]; 
+        //console.log('paramId:',paramId); //paramId np coffee sauce topping crust
+        /*console.log('param:',param);*/
+        params[paramId] = {
+          label: param.label,
+          options: {}
+        };
+
+
+        // for every option in this category
+        for(let optionId in param.options) {  //przejście po opcjach
+          // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
+          const option = param.options[optionId];
+          /*console.log(option);*/ //options np.red pepers
+          // check if there is param with a name of paramId in formData and if it includes optionId
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
+          if (optionSelected) {
+            params[paramId].options[optionId] = option.label;
+          }
+        }
+      }
+      console.log('params:', params);
+      return params;
+    }
   }
 
 
@@ -354,6 +386,7 @@
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger= thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+      thisCart.dom.productList = element.querySelector(select.cart.productList);
       
       console.log('thisCart.dom.toggleTrigger:',thisCart.dom.toggleTrigger);
     }
@@ -369,8 +402,13 @@
     }
 
     add(menuProduct){
-      //const thisCart = this;
+      const thisCart = this;
       console.log('adding product',menuProduct);
+      /* generate  HTML based on template*/
+      const generatedHTML = templates.cartProduct(menuProduct);
+      /* create element DOM */
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+      thisCart.dom.productList.appendChild(generatedDOM);
     }
   }
 
