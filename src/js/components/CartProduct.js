@@ -46,10 +46,10 @@ class CartProduct {
   remove(){
     const thisCartProduct = this;
 
-    const event = new Event('remove',{
+    const event = new CustomEvent('remove',{
       bubbles:true,
       detail: {
-        cartProduct:thisCartProduct,
+        cartProduct: thisCartProduct,
       },
     });
     thisCartProduct.dom.wrapper.dispatchEvent(event);

@@ -7,7 +7,7 @@ const app = {
     const thisApp = this;
     /*console.log('thisApp.data:', thisApp.data);*/
     for(let productData in thisApp.data.products){ 
-      new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
+      new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]); 
     }
   },
 
@@ -28,7 +28,7 @@ const app = {
         /* execute initMenu method */
         thisApp.initMenu();
       });
-    console.log('thisApp.data', JSON.stringify(thisApp.data));
+    //console.log('thisApp.data', JSON.stringify(thisApp.data));
   },
 
   init: function(){
@@ -46,11 +46,13 @@ const app = {
 
   initCart: function(){
     const thisApp = this;
+    
 
     const cartElem = document.querySelector(select.containerOf.cart);
     thisApp.cart = new Cart(cartElem);
 
     thisApp.productList = document.querySelector(select.containerOf.menu);
+    
 
     thisApp.productList.addEventListener('add-to-cart', function(event){
       app.cart.add(event.detail.product);
