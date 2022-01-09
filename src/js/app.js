@@ -1,9 +1,10 @@
-import {settings,select, /*classNames*/} from './settings.js'; //{} - aby wydobyć obiekty z pliku, kiedy importujemy kilka elementów i nie są domyślne
+import {settings,select, classNames} from './settings.js'; //{} - aby wydobyć obiekty z pliku, kiedy importujemy kilka elementów i nie są domyślne
 import Product from './components/Product.js'; //tyklo klasa obiekt funkcja mogą być importowane bez nawiasów
 import Cart from './components/Cart.js';
+import Booking from './components/Booking.js';
 
 const app = {
-  /*initPages: function(){
+  initPages: function(){
     const thisApp = this;
     thisApp.pages = document.querySelector(select.containerOf.pages).children;// odnalezienie kontenera wszystkich stron, dzięki children odnalezione wszystkie dzieci(order Booking)
     thisApp.navLinks = document.querySelectorAll(select.nav.links); //odnalezienie wszystkich linków
@@ -56,7 +57,7 @@ const app = {
       //console.log(link.classList);
     }
 
-  },*/
+  },
 
   initMenu: function(){ 
     const thisApp = this;
@@ -94,11 +95,12 @@ const app = {
     console.log('settings:', settings);
     //console.log('templates:', templates);
 
-    //thisApp.initPages();
+    thisApp.initPages();
 
     thisApp.initData();
     
     thisApp.initCart();
+    thisApp.initBooking();
   },
 
   initCart: function(){
@@ -115,6 +117,13 @@ const app = {
       app.cart.add(event.detail.product);
     });
   },
+
+  initBooking: function(){
+    const thisApp = this;
+    thisApp.bookingWrapper = document.querySelector(select.containerOf.booking);
+    thisApp.bookingWidget = new Booking(thisApp.bookingWrapper); 
+
+  }
     
 };
   
