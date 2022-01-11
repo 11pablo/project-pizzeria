@@ -1,51 +1,51 @@
 import{select, settings} from '../settings.js';
+import BaseWidget from './BaseWidget.js';
 
-class AmountWidget{
-  constructor(element){  
+class AmountWidget extends BaseWidget { //AmountWidget (dziedzicząca) jest rozszerzenie klasy baseWidget 
+  constructor(element) {  
+    super(element,settings.amountWidget.defaultValue); // oznacza konstruktor klasy nadrzędnej BaseWidget
     const thisWidget = this;
     thisWidget.getElements(element);
-    thisWidget.value = settings.amountWidget.defaultValue;
-    thisWidget.setValue(thisWidget.input.value);
+    
     thisWidget.initActions();
 
     //console.log('AmountWidget:', thisWidget);
     //console.log('constructor arguments:', element);
   }
 
-  getElements(element){
+  getElements(){
     const thisWidget = this;
 
-    thisWidget.element = element;
-    thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input); //referencje do inputów
-    thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
-    thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.amount.input); //referencje do inputów
+    thisWidget.dom.linkDecrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkDecrease);
+    thisWidget.dom.linkIncrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkIncrease);
+    thisWidget.value = settings.amountWidget.defaultValue; 
   }
 
-  /*setting quantity*/
-  setValue(value){
+  
+
+  isValid(value) { //sprawdza czy podana wartość jest prawidłowa
+    return !isNaN(value) //sprawdza czy value nie jest nie liczbą
+     && value >= settings.amountWidget.defaultMin 
+     && value <= settings.amountWidget.defaultMax;
+  }
+
+  renderValue(){ //wyświetlenie bierzącej wartości value
     const thisWidget = this;
-    //conversion
-    const newValue = parseInt(value); 
-    /*TODO:Add validation */
-    if(thisWidget.value !== newValue && !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax){ 
-      thisWidget.value = newValue; 
-      thisWidget.announce();
-    //console.log('newValue:',newValue);
-    }
-    thisWidget.input.value = thisWidget.value;
+    thisWidget.dom.input.value = thisWidget.value;
   }
 
   /*Reaction to events*/
   initActions(){
     const thisWidget = this;
-    thisWidget.input.addEventListener('change', function () {
-      thisWidget.setValue(thisWidget.input.value);
+    thisWidget.dom.input.addEventListener('change', function () {
+      thisWidget.value(thisWidget.dom.input.value); 
     });
-    thisWidget.linkDecrease.addEventListener('click', function (event) {
+    thisWidget.dom.linkDecrease.addEventListener('click', function (event) {
       event.preventDefault();
       thisWidget.setValue(thisWidget.value - 1);
     });
-    thisWidget.linkIncrease.addEventListener('click', function (event) {
+    thisWidget.dom.linkIncrease.addEventListener('click', function (event) {
       event.preventDefault();
       thisWidget.setValue(thisWidget.value + 1);
     });
@@ -57,7 +57,7 @@ class AmountWidget{
     const event = new Event('updated',{
       bubbles:true
     }); 
-    thisWidget.element.dispatchEvent(event);
+    thisWidget.dom.wrapper.dispatchEvent(event);
   }
 }
 
