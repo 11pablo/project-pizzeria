@@ -43,6 +43,10 @@ export const select = {
     peopleAmount: '.people-amount',
     hoursAmount: '.hours-amount',
     tables: '.floor-plan .table',
+    //----------------------
+    form: '.booking-form',
+    starters: '[name="starter"]',
+    
   },
   nav: {
     links: '.main-nav a',
@@ -82,6 +86,10 @@ export const classNames = {
   booking: {
     loading: 'loading',
     tableBooked: 'booked',
+    //------------------------------
+    table: 'table',
+    tableSelected: 'selected',
+    //------------------------------
   },
   nav: {
     active: 'active',
@@ -117,10 +125,10 @@ export const settings = {
     orders: 'orders',
     booking: 'booking',
     event: 'event',
-    dateStartParamKey: 'date_gte',
-    dateEndParamKey: 'date_lte',
-    notRepeatParam: 'repeat=false',
-    repeatParam: 'repeat_ne=false',
+    dateStartParamKey: 'date_gte', //większe lub równe
+    dateEndParamKey: 'date_lte', // mniejsze lub róne
+    notRepeatParam: 'repeat=false', //wydzrzenie jednorazowe
+    repeatParam: 'repeat_ne=false', //wydarzenie cykliczne
   },
   // CODE ADDED END
 };
