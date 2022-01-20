@@ -2,6 +2,7 @@ import {settings,select, classNames} from './settings.js'; //{} - aby wydobyć o
 import Product from './components/Product.js'; //tyklo klasa obiekt funkcja mogą być importowane bez nawiasów
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
+import Home from './components/Home.js';
 
 const app = {
   initPages: function(){
@@ -54,7 +55,7 @@ const app = {
         classNames.nav.active,
         link.getAttribute('href') == '#' + pageId //warunek
       ); 
-      //console.log(link.classList);
+      console.log(pageId);
     }
 
   },
@@ -101,6 +102,7 @@ const app = {
     
     thisApp.initCart();
     thisApp.initBooking();
+    thisApp.initHome();
   },
 
   initCart: function(){
@@ -122,11 +124,18 @@ const app = {
     const thisApp = this;
     thisApp.bookingWrapper = document.querySelector(select.containerOf.booking);
     thisApp.bookingWidget = new Booking(thisApp.bookingWrapper); 
+  },
 
-  }
-    
+  initHome: function(){
+    const thisApp = this;
+    const homeWidget = document.querySelector(select.containerOf.home);
+    thisApp.home = new Home(homeWidget);
+  },
 };
   
 app.init();
+
+
+
 
 

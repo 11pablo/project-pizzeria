@@ -1,133 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Pizzeria</title>
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,300i,700%7COswald:300,500,700&amp;subset=latin-ext"
-    rel="stylesheet">
-  <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-  <link rel="stylesheet" href="vendor/range-slider.min.css">
-  <link rel="stylesheet" href="css/style.css">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pizzeria</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,300i,700%7COswald:300,500,700&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="vendor/range-slider.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
 
-<body>
-
-  <header class="header">
-    <div class="container">
-      <div class="header__wrapper">
-        <div class="logo">
-          <h1 class="logo__title"><span>Mamma</span>Mia!</h1>
-          <h2 class="logo__subtitle">the best homemade Italian food</h2>
-        </div>
-        <div class="main-nav">
-          <a href="#order">Order</a>
-          <a href="#booking">Booking</a>
-        </div>
-        <div id="cart" class="cart">
-          <div class="cart__summary">
-            <span class="cart__total-number">0</span>
-            <span class="cart__total-price">Total price: $<strong>0</strong></span>
-            <i class="fas fa-chevron-down"></i>
-            <i class="fas fa-shopping-cart cart__icon"></i>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header__wrapper">
+          <div class="logo">
+            <h1 class="logo__title"><span>Mamma</span>Mia!</h1>
+            <h2 class="logo__subtitle">the best homemade Italian food</h2>
           </div>
-          <div class="cart__content">
-            <form class="cart__order">
-              <ul class="cart__order-summary no-spacing">
-              </ul>
-              <ul class="cart__order-price">
-                <li class="cart__order-subtotal">
-                  <span class="cart__order-price-name">Subtotal:</span>
-                  <span class="cart__order-price-sum">$<strong>0</strong></span>
-                </li>
-                <li class="cart__order-delivery">
-                  <span class="cart__order-price-name">Delivery:</span>
-                  <span class="cart__order-price-sum">$<strong>0</strong></span>
-                </li>
-                <li class="cart__order-total">
-                  <span class="cart__order-price-name"><strong>Total:</strong></span>
-                  <span class="cart__order-price-sum">$<strong>0</strong></span>
-                </li>
-              </ul>
-              <div class="cart__order-confirmation">
-                <input type="tel" name="phone" placeholder="Your phone">
-                <input type="text" name="address" placeholder="Your address">
-                <button type="submit" class="btn-secondary">Order</button>
-              </div>
-            </form>
+          <div class="main-nav">
+            <a href="#home">Home</a>
+            <a href="#order">Order</a>
+            <a href="#booking">Booking</a>
+          </div>
+          <div id="cart" class="cart">
+            <div class="cart__summary">
+              <span class="cart__total-number">0</span>
+              <span class="cart__total-price">Total price: $<strong>0</strong></span>
+              <i class="fas fa-chevron-down"></i>
+              <i class="fas fa-shopping-cart cart__icon"></i>
+            </div>
+            <div class="cart__content">
+              <form class="cart__order">
+                <ul class="cart__order-summary no-spacing">
+                </ul>
+                <ul class="cart__order-price">
+                  <li class="cart__order-subtotal">
+                    <span class="cart__order-price-name">Subtotal:</span>
+                    <span class="cart__order-price-sum">$<strong>0</strong></span>
+                  </li>
+                  <li class="cart__order-delivery">
+                    <span class="cart__order-price-name">Delivery:</span>
+                    <span class="cart__order-price-sum">$<strong>0</strong></span>
+                  </li>
+                  <li class="cart__order-total">
+                    <span class="cart__order-price-name"><strong>Total:</strong></span>
+                    <span class="cart__order-price-sum">$<strong>0</strong></span>
+                  </li>
+                </ul>
+                <div class="cart__order-confirmation">
+                  <input type="tel" name="phone" placeholder="Your phone">
+                  <input type="text" name="address" placeholder="Your address">
+                  <button type="submit" class="btn-secondary">Order</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
+    </header>
+
+    <div id="pages">
+      <section id="home">
+        <div class="home-wrapper container"></div>
+      </section>
+      <section id="order">
+        <div id="product-list" class="product-list container"></div>
+      </section>
+      <section id="booking">
+        <div class="booking-wrapper container"></div>
+      </section>
     </div>
-  </header>
 
-  <div id="pages">
-    <section id="order">
-      <div id="product-list" class="product-list container"></div>
-    </section>
-    <section id="booking">
-      <div class="booking-wrapper container"></div>
-    </section>
-  </div>
-
-  <script id="template-cart-product" type="text/x-handlebars-template">
-      <li>
-        <div class="widget-amount"> <!-- widget-amount -->
-          <a class="btn-quantity btn-quantity--lt" href="#less"><i class="fas fa-minus"></i></a>
-          <input class="amount" type="text" value="{{ amount }}">
-          <a class="btn-quantity btn-quantity--lt" href="#more"><i class="fas fa-plus"></i></a>
-        </div>
-        <div class="cart__product">
-          <div class="cart__product-header">
-            <span>{{ name }}</span>
-            <span>$<strong class="cart__product-price">{{ price }}</strong></span>
+    <script id="template-home-widget" type="text/x-handlebars-template">
+      <div class="container-home">
+        <section class="box-redirects">
+          <div class="redirects ">
+            <a href="#order" class="link book">
+              <h2>ORDER ONLINE</h2>
+              <p>Delicious food delivery to your door</p>
+            </a>
+            <img src="images/home/pizza-2.jpg" alt="image">
           </div>
-          <ul class="cart__product-details no-spacing">
-            {{#each params}}
-              <li>
-                <span class="cart__product-details-label">{{ label }}</span>
-                <span>{{#joinValues options}}, {{/joinValues}}</span>
-              </li>
-            {{/each}}
-          </ul>
-        </div>
-        <ul class="cart__action-buttons no-spacing">
-          <li><a href="#edit">Edit<i class="fas fa-pencil-alt"></i></a></li>
-          <li><a href="#remove">Remove<i class="fas fa-trash-alt"></i></a></li>
-        </ul>
-      </li>
+
+          <div class="redirects">
+            <a href="#booking" class="link book">
+              <h2>BOOK A TABLE</h2>
+              <p>Delicious food delivery to your door</p>
+            </a>
+            <img src="images/home/pizza-2.jpg" alt="image">
+          </div>
+
+          <div class="opening">
+            <div class="open-hours">
+              <h2>OPENING HOUR</h2>
+              <p>THU-SUN, 12PM-11PM</p>
+            </div>
+          </div>
+        </section>
+
+          <!--carusel-->
+        <section class="carousel-box">
+          <div class="main-carousel" data-flickity='{ "autoPlay": true, "wrapAround": true, "contain": true, "prevNextButtons": false, "pageDots": true}'>
+            <div class="carousel-cell">
+              <img class="carousel-img" src="images/home/pizza-3.jpg" alt="image">
+              <div class="content">
+                <h3>AMAZING SERVICE</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in lectus nec urna laoreet eleifend id at nisi. Vivamus odio.</p>
+                <h6>Margaret Osborne</h6>
+              </div>
+            </div>
+            <div class="carousel-cell">
+              <img class="carousel-img" src="images/home/pizza-3.jpg" alt="image">
+              <div class="content">
+                <h3>AMAZING SERVICE</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in lectus nec urna laoreet eleifend id at nisi. Vivamus odio.</p>
+                <h6>Margaret Osborne</h6>
+              </div>
+            </div>
+            <div class="carousel-cell">
+              <img class="carousel-img" src="images/home/pizza-3.jpg" alt="image">
+              <div class="content">
+                <h3>AMAZING SERVICE</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in lectus nec urna laoreet eleifend id at nisi. Vivamus odio.</p>
+                <h6>Margaret Osborne</h6>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--/carusel-->
+        <section class="gallery">
+          <div class="box">
+            <img src="images/home/pizza-4.jpg" alt="image">
+            <ul class="icons">
+              <li><i class="fas fa-heart"></i></li>
+              <li><i class="fas fa-share-alt"></i></li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <img src="images/home/pizza-5.jpg" alt="image">
+            <ul class="icons">
+              <li><i class="fas fa-heart"></i></li>
+              <li><i class="fas fa-share-alt"></i></li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <img src="images/home/pizza-6.jpg" alt="image">
+            <ul class="icons">
+              <li><i class="fas fa-heart"></i></li>
+              <li><i class="fas fa-share-alt"></i></li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <img src="images/home/pizza-7.jpg" alt="image">
+            <ul class="icons">
+              <li><i class="fas fa-heart"></i></li>
+              <li><i class="fas fa-share-alt"></i></li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <img src="images/home/pizza-8.jpg" alt="image">
+            <ul class="icons">
+              <li><i class="fas fa-heart"></i></li>
+              <li><i class="fas fa-share-alt"></i></li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <img src="images/home/pizza-9.jpg" alt="image">
+            <ul class="icons">
+              <li><i class="fas fa-heart"></i></li>
+              <li><i class="fas fa-share-alt"></i></li>
+            </ul>
+          </div>
+        </section>
+        <footer>
+          <a href="#instagram"><p class="footer">Viev more on Instagram</p></a>
+        </footer>
+      </div>
     </script>
 
-  <script id="template-menu-product" type="text/x-handlebars-template">
+    <script id="template-cart-product" type="text/x-handlebars-template">
+        <li>
+          <div class="widget-amount"> <!-- widget-amount -->
+            <a class="btn-quantity btn-quantity--lt" href="#less"><i class="fas fa-minus"></i></a>
+            <input class="amount" type="text" value="{{ amount }}">
+            <a class="btn-quantity btn-quantity--lt" href="#more"><i class="fas fa-plus"></i></a>
+          </div>
+          <div class="cart__product">
+            <div class="cart__product-header">
+              <span>{{ name }}</span>
+              <span>$<strong class="cart__product-price">{{ price }}</strong></span>
+            </div>
+            <ul class="cart__product-details no-spacing">
+              {{#each params}}
+                <li>
+                  <span class="cart__product-details-label">{{ label }}</span>
+                  <span>{{#joinValues options}}, {{/joinValues}}</span>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+          <ul class="cart__action-buttons no-spacing">
+            <li><a href="#edit">Edit<i class="fas fa-pencil-alt"></i></a></li>
+            <li><a href="#remove">Remove<i class="fas fa-trash-alt"></i></a></li>
+          </ul>
+        </li>
+    </script>
+
+    <script id="template-menu-product" type="text/x-handlebars-template">
       <article class="product"> <!-- product -->
 
-          <header class="product__header">
-            <h3 class="product__name no-spacing">{{ name }} <i class="fas fa-chevron-down product__icon"></i></h3>
-            <p class="product__base-price no-spacing">${{ price }}</p>
-          </header>
-          <div class="product__description"> <!-- description -->
-            <p>{{{ description }}}</p>
-          </div> <!-- .description -->
-          <div class="product__wrapper"> <!-- details -->
-            <form class="product__order">
-              <ul class="product__params"> <!-- params -->
-                {{#each params as |param paramId| }}
-                {{#ifEquals type "checkboxes"}}
-                <li> <!-- checkboxes -->
-                  <h3 class="product__params-title">{{{ label }}}</h3>
-                  {{#each options}}
-                  <div class="checkbox"> <!-- checkbox -->
-                    <label>
-                      <input type="checkbox" name="{{ paramId }}" value="{{ @key }}" id="{{ @key }}" {{#if default}}checked{{/if}}>
-                      <span class="checkbox__checkmark"></span>
-                      {{{ label }}} (${{{ price }}})
-                    </label>
-                  </div>
-                  {{/each}}
-                </li>
+        <header class="product__header">
+          <h3 class="product__name no-spacing">{{ name }} <i class="fas fa-chevron-down product__icon"></i></h3>
+          <p class="product__base-price no-spacing">${{ price }}</p>
+        </header>
+        <div class="product__description"> <!-- description -->
+          <p>{{{ description }}}</p>
+        </div> <!-- .description -->
+        <div class="product__wrapper"> <!-- details -->
+          <form class="product__order">
+            <ul class="product__params"> <!-- params -->
+              {{#each params as |param paramId| }}
+              {{#ifEquals type "checkboxes"}}
+              <li> <!-- checkboxes -->
+                <h3 class="product__params-title">{{{ label }}}</h3>
+                {{#each options}}
+                <div class="checkbox"> <!-- checkbox -->
+                  <label>
+                    <input type="checkbox" name="{{ paramId }}" value="{{ @key }}" id="{{ @key }}" {{#if default}}checked{{/if}}>
+                    <span class="checkbox__checkmark"></span>
+                    {{{ label }}} (${{{ price }}})
+                  </label>
+                </div>
+                {{/each}}
+              </li>
                 {{/ifEquals}}
                 {{#ifEquals type "radios"}}
                 <li> <!-- radios -->
@@ -141,46 +257,46 @@
                     </label>
                   </div>
                   {{/each}}
-                </li>
-                {{/ifEquals}}
-                {{#ifEquals type "select"}}
-                <li> <!-- select -->
-                  <h3 class="product__params-title">{{{ label }}}</h3>
-                  <select name="{{ paramId }}">
-                    {{#each options}}
-                    <option value="{{ @key }}" {{#if default}}selected{{/if}}>{{{ label }}} (${{{ price }}})</option>
-                    {{/each}}
-                  </select>
-                </li>
-                {{/ifEquals}}
-                {{/each}}
-              </ul>
-              <div class="amount"> <!-- controls -->
-                <div class="widget-amount"> <!-- widget-amount -->
-                  <h3 class="product__params-title">Select quantity</h3>
-                  <a class="btn-quantity" href="#less"><i class="fas fa-minus"></i></a>
-                  <input type="text" class="amount">
-                  <a class="btn-quantity" href="#more"><i class="fas fa-plus"></i></a>
-                </div>
-                <p class="product__total-price">
-                  Total: $<span class="price">{{{ price }}}</span>
-                </p>
-                <div> <!-- add-to-cart -->
-                  <a class="btn-primary" href="#add-to-cart">Add to cart</a>
-                </div>
-              </div>
-            </form>
-            <div class="product__images {{ class }}"> <!-- images -->
-              {{#each images}}
-              {{{ this }}}
+            </li>
+              {{/ifEquals}}
+              {{#ifEquals type "select"}}
+              <li> <!-- select -->
+                <h3 class="product__params-title">{{{ label }}}</h3>
+                <select name="{{ paramId }}">
+                  {{#each options}}
+                  <option value="{{ @key }}" {{#if default}}selected{{/if}}>{{{ label }}} (${{{ price }}})</option>
+                  {{/each}}
+                </select>
+              </li>
+              {{/ifEquals}}
               {{/each}}
+            </ul>
+            <div class="amount"> <!-- controls -->
+              <div class="widget-amount"> <!-- widget-amount -->
+                <h3 class="product__params-title">Select quantity</h3>
+                <a class="btn-quantity" href="#less"><i class="fas fa-minus"></i></a>
+                <input type="text" class="amount">
+                <a class="btn-quantity" href="#more"><i class="fas fa-plus"></i></a>
+              </div>
+              <p class="product__total-price">
+                Total: $<span class="price">{{{ price }}}</span>
+              </p>
+              <div> <!-- add-to-cart -->
+                <a class="btn-primary" href="#add-to-cart">Add to cart</a>
+              </div>
             </div>
+          </form>
+          <div class="product__images {{ class }}"> <!-- images -->
+            {{#each images}}
+            {{{ this }}}
+            {{/each}}
           </div>
+        </div>
 
       </article> <!-- .product -->
     </script>
 
-  <script id="template-booking-widget" type="text/x-handlebars-template">
+    <script id="template-booking-widget" type="text/x-handlebars-template">
       <div class="booking-widget">
         <h2 class="page__title no-spacing">Book a table</h2>
         <form class="booking-form">
@@ -246,10 +362,10 @@
       </div>
     </script>
     <script src="vendor/range-slider.min.js"></script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
-  <script src="js/app.js" type="module"></script>
-  <!--plik wejściowy modułów js-->
-</body>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+    <script src="js/app.js" type="module"></script>
+    <!--plik wejściowy modułów js-->
+  </body>
 </html>
