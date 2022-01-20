@@ -88,13 +88,14 @@
 }
 
 //carusel
+
 .main-carousel {
   width: 100%;
-  padding:(base-size);
+  padding: (base-size);
   margin: 40px auto;
 }
 
-  .carousel-cell {
+.carousel-cell {
   width: 100%;
   background: $color-light;
   border-radius: 5px;
@@ -193,10 +194,3 @@ footer a {
 footer a:hover {
   color: rgb(139, 9, 9);
 }
-
-
-
-
-
-
-

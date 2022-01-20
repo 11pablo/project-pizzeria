@@ -17,7 +17,7 @@ class Home {
     thisHome.dom.wrapper= element;
     thisHome.dom.wrapper.innerHTML = generatedHTML;
   }
-
+  /*obsługa link box*/
   initLinks(){
     const thisHome = this;
 
