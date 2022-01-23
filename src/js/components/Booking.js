@@ -167,6 +167,7 @@ class Booking {
 
     thisBooking.dom.form = element.querySelector(select.booking.form);
     console.log(select.booking.form);
+    thisBooking.dom.floorPlan = element.querySelector(select.booking.floorPlan);
     thisBooking.dom.address = element.querySelector(select.cart.address);
     thisBooking.dom.phone = element.querySelector(select.cart.phone);
     thisBooking.dom.starters = element.querySelectorAll(select.booking.starters);
@@ -185,50 +186,59 @@ class Booking {
 
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker); 
     thisBooking.dom.datePicker.addEventListener('updated', function(){  // nasłuchiwanie data
-
     });
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker); 
     thisBooking.dom.hourPicker.addEventListener('updated',function(){  // nasłuchiwanie godzina
-
     });
 
     thisBooking.dom.wrapper.addEventListener('updated', function(){
+      thisBooking.deleteSelected();
       thisBooking.updateDOM();
+
     });
 
     thisBooking.dom.form.addEventListener('submit', function (event) {
       event.preventDefault();
+      thisBooking.sendBooking();
       
     });
     
   }
 
-  
   initTables(){
     const thisBooking = this;
+    thisBooking.dom.floorPlan.addEventListener('click', function (event) {
+      event.preventDefault();
 
-    for (let table of thisBooking.dom.tables){ //interacja po stolikach
-      table.addEventListener('click', function (event){
-        event.preventDefault();
-        if (table.classList.contains('booked')){ //jeśli stolik zarezerwowany , zawiera booked
-          alert('This table is reserved');
-        } else {
-          const tableNumber = parseInt(table.getAttribute(settings.booking.tableIdAttribute)); //pobranie nr stolika
-          
-          if (thisBooking.clickedTable){
-            thisBooking.deleteSelected();
-          } else {
-            table.classList.add(classNames.booking.tableSelected); //dodaje klasę
-            thisBooking.clickedTable = tableNumber;
-            thisBooking.sendBooking();
-          }
+      const clicked = event.target;
+      thisBooking.tableAttribute = clicked.getAttribute(settings.booking.tableIdAttribute);
+      
+      if (thisBooking.tableAttribute) { //jeśli kliknięty 
+        thisBooking.clickedTable = parseInt(thisBooking.tableAttribute);
+        const TableBooked = clicked.classList.contains(classNames.booking.tableBooked);
+        const TableSelected = clicked.classList.contains(classNames.booking.tableSelected);
+        
+        if (!TableBooked && !TableSelected) {// niezarezerwowany nie wybrany
+          thisBooking.deleteSelected();
+          clicked.classList.add(classNames.booking.tableSelected);
+          thisBooking.tableNumber = thisBooking.clickedTable;
+
         }
-      });
-    }
+        
+        else if (!TableBooked && TableSelected) { //wybrany wcześniej niezarezerwowany
+          thisBooking.deleteSelected();
+        }
+        
+        else if (TableBooked) { //jeśli zarezerwowany
+          alert('This table is reserved');
+        }
+      }
+    });
   }
 
   deleteSelected(){
     const thisBooking = this;
+    
     const clickedTables = document.querySelectorAll('.selected');
     //console.log('clickedTables',clickedTables);
     for( let clicked of clickedTables){
